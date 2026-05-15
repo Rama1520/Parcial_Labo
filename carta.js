@@ -11,7 +11,7 @@ class Carta {
     }
 
     static createFromJsonString(json) {
-        let obj = json; 
+        let obj = JSON.parse(json); 
         return new Carta(obj.code, obj.value, obj.suit, obj.imagen);
     }
 
@@ -35,7 +35,7 @@ class Carta {
 
         let btnGuardar = document.createElement("button");
         btnGuardar.innerText = "Guardar";
-        btnGuardar.className = "btn btn-outline-primary"; 
+        btnGuardar.className = "btn btn-outline-primary";
         btnGuardar.addEventListener("click", () => {
             Carta.guardarCarta(this);
         });
@@ -65,8 +65,7 @@ class Carta {
 
         if(!repetida) {
             guardadas.push(carta);
-            
-            localStorage.setItem("cartasGuardadas", guardadas);
+            localStorage.setItem("cartasGuardadas", JSON.stringify(guardadas));
             alert("Carta guardada correctamente!");
         } else {
             alert("Esta carta ya la habías guardado.");
