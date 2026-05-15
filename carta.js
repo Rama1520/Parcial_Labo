@@ -18,7 +18,7 @@ class Carta {
 
     createHtmlElement() {
         let divCarta = document.createElement("div");
-        divCarta.className = "tajeta"; 
+        divCarta.className = "tarjeta"; 
 
         let img = document.createElement("img");
         img.src = this.imagen;
