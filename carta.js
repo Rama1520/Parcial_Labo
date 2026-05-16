@@ -17,34 +17,34 @@ class Carta {
 
     createHtmlElement() {
         let divCarta = document.createElement("div");
-        divCarta.className = "tarjeta";
+        divCarta.className = "card border-secondary shadow-sm";
 
         let img = document.createElement("img");
         img.src = this.imagen;
-        img.style.width = "100%"; 
-        img.style.cursor = "pointer";
+        img.className = "card-img-top"; 
+        img.style.cursor = "pointer";        
         img.addEventListener("click", () => {
             window.open(this.imagen, "_blank");
         });
-
-        let titulo = document.createElement("h3");
+       
+        let titulo = document.createElement("h5");
         titulo.innerText = this.value + " of " + this.suit;
+        titulo.className = "text-primary mt-2 text-center"; 
 
         let parrafoCodigo = document.createElement("p");
         parrafoCodigo.innerText = "Código: " + this.code;
+        parrafoCodigo.className = "text-center";
 
         let btnGuardar = document.createElement("button");
         btnGuardar.innerText = "Guardar";
-        btnGuardar.className = "btn btn-outline-primary";
+        btnGuardar.className = "btn btn-outline-success m-2"; // m-2 para que no se pegue tanto
         btnGuardar.addEventListener("click", () => {
             Carta.guardarCarta(this);
         });
-
         divCarta.appendChild(img);
         divCarta.appendChild(titulo);
         divCarta.appendChild(parrafoCodigo);
         divCarta.appendChild(btnGuardar);
-
         return divCarta;
     }
 

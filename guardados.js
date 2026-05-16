@@ -8,9 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function mostrarGuardados(arrayCartas = null) {
     let contenedor = document.getElementById("cartas");
     contenedor.innerHTML = "";
-
-    let guardadas = arrayCartas;
-    
+    let guardadas = arrayCartas;    
     if (guardadas == null) {
         let storage = localStorage.getItem("cartasGuardadas");
         if (storage != null) {
@@ -21,13 +19,12 @@ function mostrarGuardados(arrayCartas = null) {
     }
 
     if (guardadas.length === 0) {
-        contenedor.innerHTML = "<h5>No hay cartas guardadas en tu colección.</h5>";
+        contenedor.innerHTML = "<h5 class='text-center w-100 mt-4'>No hay cartas guardadas en tu colección.</h5>";
         return;
     }
 
     for (let i = 0; i < guardadas.length; i++) {
         let c = guardadas[i];
-        
         let cartaObj = new Carta(c.code, c.value, c.suit, c.imagen);
         let elemento = cartaObj.createHtmlElement();
         
@@ -43,10 +40,8 @@ function mostrarGuardados(arrayCartas = null) {
 function ordenarPorValor() {
     let storage = localStorage.getItem("cartasGuardadas");
     if (storage != null) {
-        let guardadas = JSON.parse(storage);
-        
-        guardadas.sort((a, b) => a.value.localeCompare(b.value));
-        
+        let guardadas = JSON.parse(storage);        
+        guardadas.sort((a, b) => parseInt(a.value) - parseInt(b.value));        
         mostrarGuardados(guardadas);
     }
 }
@@ -55,9 +50,7 @@ function ordenarPorPalo() {
     let storage = localStorage.getItem("cartasGuardadas");
     if (storage != null) {
         let guardadas = JSON.parse(storage);
-        
         guardadas.sort((a, b) => a.suit.localeCompare(b.suit));
-        
         mostrarGuardados(guardadas);
     }
-}
+} 
