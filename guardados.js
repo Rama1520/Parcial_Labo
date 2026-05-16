@@ -8,7 +8,9 @@ document.addEventListener("DOMContentLoaded", () => {
 function mostrarGuardados(arrayCartas = null) {
     let contenedor = document.getElementById("cartas");
     contenedor.innerHTML = "";
-    let guardadas = arrayCartas;    
+
+    let guardadas = arrayCartas;
+    
     if (guardadas == null) {
         let storage = localStorage.getItem("cartasGuardadas");
         if (storage != null) {
@@ -37,11 +39,27 @@ function mostrarGuardados(arrayCartas = null) {
     }
 }
 
+function obtenerValorNumerico(valorStr) {
+    if (valorStr === "ACE") return 14;
+    if (valorStr === "KING") return 13;
+    if (valorStr === "QUEEN") return 12;
+    if (valorStr === "JACK") return 11;
+    return parseInt(valorStr); 
+}
+
+function obtenerValorPalo(paloStr) {
+    if (paloStr === "SPADES") return 1;
+    if (paloStr === "CLUBS") return 2;
+    if (paloStr === "HEARTS") return 3;
+    if (paloStr === "DIAMONDS") return 4;
+    return 5;
+}
+
 function ordenarPorValor() {
     let storage = localStorage.getItem("cartasGuardadas");
     if (storage != null) {
-        let guardadas = JSON.parse(storage);        
-        guardadas.sort((a, b) => parseInt(a.value) - parseInt(b.value));        
+        let guardadas = JSON.parse(storage);
+        guardadas.sort((a, b) => obtenerValorNumerico(a.value) - obtenerValorNumerico(b.value));
         mostrarGuardados(guardadas);
     }
 }
@@ -50,7 +68,7 @@ function ordenarPorPalo() {
     let storage = localStorage.getItem("cartasGuardadas");
     if (storage != null) {
         let guardadas = JSON.parse(storage);
-        guardadas.sort((a, b) => a.suit.localeCompare(b.suit));
+        guardadas.sort((a, b) => obtenerValorPalo(a.suit) - obtenerValorPalo(b.suit));
         mostrarGuardados(guardadas);
     }
-} 
+}

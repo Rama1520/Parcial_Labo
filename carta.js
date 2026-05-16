@@ -17,34 +17,42 @@ class Carta {
 
     createHtmlElement() {
         let divCarta = document.createElement("div");
-        divCarta.className = "card border-secondary shadow-sm";
+        divCarta.className = "card border-secondary shadow-sm h-100";
 
         let img = document.createElement("img");
         img.src = this.imagen;
         img.className = "card-img-top"; 
-        img.style.cursor = "pointer";        
+        img.style.cursor = "pointer";
+        
         img.addEventListener("click", () => {
             window.open(this.imagen, "_blank");
         });
-       
+
+        let cardBody = document.createElement("div");
+        cardBody.className = "card-body d-flex flex-column align-items-center justify-content-center text-center";
+        
         let titulo = document.createElement("h5");
-        titulo.innerText = this.value + " of " + this.suit;
-        titulo.className = "text-primary mt-2 text-center"; 
+        titulo.innerText = this.value + " de " + this.suit;
+        titulo.className = "card-title text-dark text-capitalize"; 
 
         let parrafoCodigo = document.createElement("p");
         parrafoCodigo.innerText = "Código: " + this.code;
-        parrafoCodigo.className = "text-center";
+        parrafoCodigo.className = "card-text text-muted mb-3";
 
         let btnGuardar = document.createElement("button");
         btnGuardar.innerText = "Guardar";
-        btnGuardar.className = "btn btn-outline-success m-2"; // m-2 para que no se pegue tanto
+        btnGuardar.className = "btn btn-outline-success mt-auto w-100"; 
         btnGuardar.addEventListener("click", () => {
             Carta.guardarCarta(this);
         });
+
+        cardBody.appendChild(titulo);
+        cardBody.appendChild(parrafoCodigo);
+        cardBody.appendChild(btnGuardar);
+
         divCarta.appendChild(img);
-        divCarta.appendChild(titulo);
-        divCarta.appendChild(parrafoCodigo);
-        divCarta.appendChild(btnGuardar);
+        divCarta.appendChild(cardBody);
+
         return divCarta;
     }
 
